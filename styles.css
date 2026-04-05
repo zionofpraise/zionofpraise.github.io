@@ -12,7 +12,7 @@
 
 body {
   margin: 0;
-  font-family: "Miranda Sans", Inter, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Geist Mono", Inter, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: var(--ink);
   background: var(--bg);
 }
@@ -34,6 +34,7 @@ code {
 }
 
 .hero {
+  text-align: center;
   padding: 1.25rem 0;
 }
 
@@ -43,7 +44,6 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 0.68rem;
-  font-weight: 700;
 }
 
 .hero h1 {
@@ -79,6 +79,8 @@ code {
 }
 
 .sunday-card {
+  display: flex;
+  flex-direction: column;
   padding: 0;
 }
 
@@ -86,8 +88,9 @@ code {
   position: sticky;
   top: 0;
   z-index: 2;
-  margin-bottom: 0.85rem;
-  padding: 0.5rem 0;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 0.75rem 0 0.5rem;
   background: var(--bg);
 }
 
@@ -129,4 +132,32 @@ code {
   .gallery {
     grid-template-columns: 1fr;
   }
+}
+
+.tooltip-container {
+  position: relative;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+.tooltip-container::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  white-space: nowrap;
+  top: 100%;
+  left: 50%;
+  display: block;
+  font-size: 1rem;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+}
+.tooltip-container:hover::after {
+  visibility: visible;
+  opacity: 1;
 }

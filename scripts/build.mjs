@@ -1,7 +1,6 @@
 import { readdirSync, writeFileSync } from "node:fs";
 
 const outputPath = new URL("../index.html", import.meta.url);
-const photosRoot = new URL("../photos/", import.meta.url);
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   weekday: "long",
@@ -60,7 +59,7 @@ function renderPhotos(entry) {
 function renderEntry(entry) {
   return `        <section class="sunday-card">
           <div class="sunday-head">
-            <h2 class="sunday-title">${entry.date}</h2>
+            <h2 class="sunday-title">Week #${entry.weekNumber}: ${entry.date}</h2>
           </div>
           <div class="photo-grid">
 ${renderPhotos(entry)}
@@ -68,12 +67,27 @@ ${renderPhotos(entry)}
         </section>`;
 }
 
+const entries = getSundaysFor2026()
+  .map((date, index) => ({ date, photos: getPhotosForDate(date), weekNumber: index + 1 }))
+  .filter((entry) => entry.photos.length > 0)
+  .reverse();
+
+const latestPhoto = entries[0] ? `./photos/${entries[0].date}/${entries[0].photos[0]}` : "";
+
 const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2026 Sundays</title>
+
+    <meta property="og:image" content="${escapeHtml(latestPhoto)}" />
+
+    <title>CBCF - ZOP 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -83,12 +97,7 @@ const html = `<!DOCTYPE html>
       </header>
 
       <div class="gallery">
-${getSundaysFor2026()
-  .map((date) => ({ date, photos: getPhotosForDate(date) }))
-  .filter((entry) => entry.photos.length > 0)
-  .reverse()
-  .map(renderEntry)
-  .join("\n")}
+${entries.map(renderEntry).join("\n")}
       </div>
     </main>
   </body>
