@@ -1,0 +1,132 @@
+:root {
+  --bg: #1e1e1e;
+  --ink: #efefef;
+  --muted: #b6b6b6;
+  --line: rgba(255, 255, 255, 0.14);
+  --accent: #d5d5d5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Miranda Sans", Inter, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+}
+
+.page {
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.hero {
+  padding: 1.25rem 0;
+}
+
+.eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  line-height: 1;
+}
+
+.intro,
+.legend p,
+.sunday-date,
+.empty-state {
+  color: var(--muted);
+}
+
+.intro {
+  max-width: 60ch;
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.legend {
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 0 0.75rem 1rem;
+  border-left: 4px solid var(--accent);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.sunday-card {
+  padding: 0;
+}
+
+.sunday-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-bottom: 0.85rem;
+  padding: 0.5rem 0;
+  background: var(--bg);
+}
+
+.sunday-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 3vw, 1.5rem);
+}
+
+.photo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.photo-frame {
+  margin: 0;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: auto;
+}
+
+.empty-state {
+  margin: 0;
+  padding: 0.85rem 0;
+  border: 1px dashed var(--line);
+  border-left: 0;
+  border-right: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-top: 0.75rem;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
