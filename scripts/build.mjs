@@ -77,11 +77,12 @@ const latestPhoto = entries[0] ? `./photos/${entries[0].date}/${entries[0].photo
 const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="icon" type="image/png" href="https://zionofpraise.github.io/favicon.png" />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta property="og:image" content="./photos/2026-04-05/661157513_1247146084155527_655393477554971063_n.jpg" />
+    <meta property="og:image" content="https://zionofpraise.github.io/photos/2026-04-05/661157513_1247146084155527_655393477554971063_n.jpg" />
 
     <title>CBCF - 52 weeks of ZOP (2026)</title>
     
