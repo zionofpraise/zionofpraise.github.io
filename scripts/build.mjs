@@ -77,16 +77,17 @@ const latestPhoto = entries[0] ? `./photos/${entries[0].date}/${entries[0].photo
 const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="icon" type="image/png" href="./favicon.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta property="og:image" content="${escapeHtml(latestPhoto)}" />
+    <meta property="og:image" content="./photos/2026-04-05/661157513_1247146084155527_655393477554971063_n.jpg" />
 
-    <title>CBCF - ZOP 2026</title>
+    <title>CBCF - 52 weeks of ZOP (2026)</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="./styles.css" />
   </head>
