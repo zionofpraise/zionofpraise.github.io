@@ -108,11 +108,19 @@ code {
 
 .photo-frame {
   margin: 0;
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .photo-frame img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .empty-state {
@@ -124,7 +132,7 @@ code {
   font-size: 0.9rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 960px) {
   .page {
     padding-top: 0.75rem;
   }
@@ -157,6 +165,7 @@ code {
   transition: opacity 0.3s;
   z-index: 10;
 }
+
 .tooltip-container:hover::after {
   visibility: visible;
   opacity: 1;
