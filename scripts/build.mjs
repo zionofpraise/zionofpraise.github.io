@@ -95,7 +95,7 @@ const html = `<!DOCTYPE html>
   <body>
     <main class="page">
       <header class="hero">
-        <h1>ZOP 2026</h1>
+        <h1>52 weeks of <span class="tooltip-container" data-tooltip="Zion of Praise">ZOP</span> (2026)</h1>
       </header>
 
       <div class="gallery">

@@ -75,7 +75,7 @@ code {
 .gallery {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .sunday-card {
@@ -110,10 +110,15 @@ code {
   margin: 0;
   aspect-ratio: 3 / 2;
   width: 100%;
+  border-radius: 27px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.photo-frame + .photo-frame {
+  display: none;
 }
 
 .photo-frame img {
