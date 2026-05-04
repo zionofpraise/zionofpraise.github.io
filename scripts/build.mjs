@@ -35,10 +35,10 @@ function getSundaysFor2026() {
 }
 
 function getPhotosForDate(date) {
-  const folderUrl = new URL(`../photos/${date}/`, import.meta.url);
-
-  return readdirSync(folderUrl, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && !entry.name.startsWith("."))
+  // Look for files named after the date in the /photos directory
+  const photosUrl = new URL(`../photos/`, import.meta.url);
+  return readdirSync(photosUrl, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && !entry.name.startsWith(".") && entry.name.startsWith(date + "."))
     .map((entry) => entry.name)
     .sort((left, right) => left.localeCompare(right, "en"));
 }
@@ -50,7 +50,7 @@ function renderPhotos(entry) {
       const alt = escapeHtml(`${dateFormatter.format(new Date(`${entry.date}T00:00:00Z`))} photo`);
 
       return `            <figure class="photo-frame">
-              <img src="./photos/${entry.date}/${safePhoto}" alt="${alt}" loading="lazy" />
+              <img src="./photos/${safePhoto}" alt="${alt}" loading="lazy" />
             </figure>`;
     })
     .join("\n");
@@ -72,7 +72,7 @@ const entries = getSundaysFor2026()
   .filter((entry) => entry.photos.length > 0)
   .reverse();
 
-const latestPhoto = entries[0] ? `./photos/${entries[0].date}/${entries[0].photos[0]}` : "";
+const latestPhoto = entries[0] ? `./photos/${entries[0].photos[0]}` : "";
 
 const html = `<!DOCTYPE html>
 <html lang="en">
