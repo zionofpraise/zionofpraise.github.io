@@ -1,4 +1,4 @@
-import { readdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, readdirSync, writeFileSync } from "node:fs";
 
 const outputPath = new URL("../index.html", import.meta.url);
 
@@ -107,3 +107,10 @@ ${entries.map(renderEntry).join("\n")}
 `;
 
 writeFileSync(outputPath, html);
+
+if (entries[0]) {
+  copyFileSync(
+    new URL(`../photos/${entries[0].photos[0]}`, import.meta.url),
+    new URL("../thumbnail.jpg", import.meta.url)
+  );
+}
