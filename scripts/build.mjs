@@ -34,13 +34,38 @@ function getSundaysFor2026() {
   return sundays;
 }
 
-function getPhotosForDate(date) {
-  // Look for files named after the date in the /photos directory
+function getPhotosBySunday(sundays) {
+  const sundaySet = new Set(sundays);
   const photosUrl = new URL(`../photos/`, import.meta.url);
-  return readdirSync(photosUrl, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && !entry.name.startsWith(".") && entry.name.startsWith(date + "."))
+  const groups = {};
+
+  readdirSync(photosUrl, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && !entry.name.startsWith("."))
     .map((entry) => entry.name)
-    .sort((left, right) => left.localeCompare(right, "en"));
+    .filter((name) => /^\d{4}-\d{2}-\d{2}\./.test(name))
+    .forEach((name) => {
+      const date = name.slice(0, 10);
+      if (!sundaySet.has(date)) return;
+      if (!groups[date]) groups[date] = [];
+      groups[date].push(name);
+    });
+
+  for (const date of Object.keys(groups)) {
+    groups[date].sort((a, b) => a.localeCompare(b, "en"));
+  }
+
+  return groups;
+}
+
+function getLatestPhotoName() {
+  const photosUrl = new URL(`../photos/`, import.meta.url);
+  const photos = readdirSync(photosUrl, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && !entry.name.startsWith("."))
+    .map((entry) => entry.name)
+    .filter((name) => /^\d{4}-\d{2}-\d{2}\./.test(name))
+    .sort((a, b) => a.localeCompare(b, "en"));
+
+  return photos.length > 0 ? photos[photos.length - 1] : null;
 }
 
 function renderPhotos(entry) {
@@ -67,12 +92,13 @@ ${renderPhotos(entry)}
         </section>`;
 }
 
-const entries = getSundaysFor2026()
-  .map((date, index) => ({ date, photos: getPhotosForDate(date), weekNumber: index + 1 }))
+const sundays = getSundaysFor2026();
+const photosBySunday = getPhotosBySunday(sundays);
+
+const entries = sundays
+  .map((date, index) => ({ date, photos: photosBySunday[date] || [], weekNumber: index + 1 }))
   .filter((entry) => entry.photos.length > 0)
   .reverse();
-
-const latestPhoto = entries[0] ? `./photos/${entries[0].photos[0]}` : "";
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -85,7 +111,7 @@ const html = `<!DOCTYPE html>
     <meta property="og:image" content="https://zionofpraise.github.io/thumbnail.jpg" />
 
     <title>CBCF - 52 weeks of ZOP (2026)</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300&display=swap" rel="stylesheet">
@@ -108,9 +134,10 @@ ${entries.map(renderEntry).join("\n")}
 
 writeFileSync(outputPath, html);
 
-if (entries[0]) {
+const latestPhoto = getLatestPhotoName();
+if (latestPhoto) {
   copyFileSync(
-    new URL(`../photos/${entries[0].photos[0]}`, import.meta.url),
+    new URL(`../photos/${latestPhoto}`, import.meta.url),
     new URL("../thumbnail.jpg", import.meta.url)
   );
 }
