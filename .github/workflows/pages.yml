@@ -31,6 +31,12 @@ jobs:
       - name: Build static site
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          echo "=== index.html head ===" && head -35 index.html
+          echo "=== thumbnail ===" && ls -la thumbnail.jpg
+          echo "=== photos ===" && ls photos/
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
