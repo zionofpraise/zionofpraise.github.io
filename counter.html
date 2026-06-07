@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Name Counter</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .controls {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+      }
+
+      .btn-primary {
+        background: #007bff;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #0056b3;
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #545b62;
+      }
+
+      .btn-success {
+        background: #28a745;
+        color: white;
+      }
+
+      .btn-success:hover {
+        background: #218838;
+      }
+
+      .counter-list {
+        list-style: none;
+      }
+
+      .counter-item {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        gap: 15px;
+      }
+
+      .counter-item:hover {
+        background: #f8f9fa;
+      }
+
+      .counter-name {
+        flex: 1;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .counter-value {
+        min-width: 50px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: #007bff;
+      }
+
+      .counter-buttons {
+        display: flex;
+        gap: 8px;
+      }
+
+      .counter-btn {
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+        transition: all 0.2s;
+      }
+
+      .btn-minus {
+        background: #dc3545;
+        color: white;
+      }
+
+      .btn-minus:hover {
+        background: #c82333;
+      }
+
+      .btn-plus {
+        background: #28a745;
+        color: white;
+      }
+
+      .btn-plus:hover {
+        background: #218838;
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      .total {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 2px solid #007bff;
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .total-value {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Name Counter</h1>
+
+      <div class="controls">
+        <button class="btn btn-primary" onclick="exportData()">
+          Export JSON
+        </button>
+        <button
+          class="btn btn-secondary"
+          onclick="document.getElementById('fileInput').click()"
+        >
+          Import JSON
+        </button>
+<input
+          type="file"
+          id="fileInput"
+          class="file-input"
+          accept=".json"
+          onchange="importData(event)"
+        />
+      </div>
+
+      <ul class="counter-list" id="counterList">
+        <!-- Counter items will be inserted here -->
+      </ul>
+
+      <div class="total">
+        Total: <span class="total-value" id="totalValue">0</span>
+      </div>
+    </div>
+
+    <script src="counter.js"></script>
+  </body>
+</html>

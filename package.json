@@ -1,7 +1,12 @@
 {
   "name": "zop-2026-sundays",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "counter": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
